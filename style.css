@@ -1,0 +1,160 @@
+html, body {
+    margin: 0 auto;
+    background-color: rgb(221, 221, 228);
+    font-family: Helvetica;
+}
+
+.container {
+    display: grid;
+    grid-template: 1fr / 200px max-content;
+}
+
+.header {
+    grid-area: 1 / 1 / 1 / 2;
+    color: white;
+    background-color: rgb(255, 146, 4);
+    padding-left: 20px;
+    box-shadow: black 0px 0px 5px;
+}
+
+.books {
+    display: grid;
+    grid-template: repeat(3, 200px) / repeat(5, 200px);
+    gap: 50px;
+    padding: 50px;
+}
+
+.book {
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: black 0px 0px 5px;
+    display: grid;
+    grid-template: 68px 32px 32px 68px / 1fr 1fr;
+}
+
+.title {
+    grid-area: 1 / 1 / 2 / 3;
+    color: white;
+    background-color: rgb(255, 146, 4);
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.book > p {
+    padding-left: 20px;
+    grid-column: 1 / 3;
+}
+
+.action {
+    border-radius: 30px;
+    color: rgb(255, 146, 4);
+    border: 2px solid rgb(255, 146, 4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#delete {
+    margin: 20px 10px 20px 20px;
+}
+
+#delete:hover {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(255, 33, 4);
+    border: 2px solid rgb(255, 33, 4);
+}
+
+#read {
+    margin: 20px 20px 20px 10px;
+    color: white;
+    background-color: rgb(255, 146, 4);
+}
+
+#notRead {
+    margin: 20px 20px 20px 10px;
+    color: rgb(255, 146, 4);
+    background-color: white;
+}
+
+.newBook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    color: rgb(255, 146, 4);
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: black 0px 0px 5px;
+}
+
+.newBook:hover {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(255, 146, 4);
+}
+
+.newBook > p {
+    margin: 5px;
+}
+
+i {
+    font-size: 4em;
+}
+
+dialog {
+    top: 20%;
+    z-index: 10;
+    margin-top: 10px;
+    background: white;
+    border-radius: 30px;
+    border: 0;
+    padding: 0;
+    box-shadow: black 0px 0px 5px;
+    
+}
+
+dialog::backdrop {
+    background: rgb(255, 146, 4, 0.25);
+}
+
+.form-title {
+    padding: 40px;
+    text-align: center;
+}
+
+form {
+    padding: 20px 40px;
+}
+
+button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 30px;
+    background-color: white;
+    color: rgb(255, 146, 4);
+    border: 2px solid rgb(255, 146, 4);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#cancel:hover {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(255, 33, 4);
+    border: 2px solid rgb(255, 33, 4);
+}
+
+#submit:hover {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(255, 146, 4);
+    border: 2px solid rgb(255, 146, 4);
+}

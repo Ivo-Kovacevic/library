@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/1dd9609656.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <dialog>
+        <div class="title form-title">ADD NEW BOOK</div>
+        <form id="myForm">
+            <label for="title">Title:</label><br>
+            <input type="text" name="title" id="title" required><br><br>
+
+            <label for="author">Author:</label><br>
+            <input type="text" name="author" id="author" required><br><br>
+
+            <label for="pages">Number of pages:</label><br>
+            <input type="number" name="pages" id="pages" required><br><br>
+
+            <input type="radio" name="read" id="didRead" value="true" required>
+            <label for="didRead">Read</label>
+            <input type="radio" name="read" id="didNotRead" value="false" required>
+            <label for="didNotRead">Not read</label><br><br>
+
+            <button type="reset" id="cancel">CANCEL</button>
+            <button type="submit" id="submit">SUBMIT</button>
+        </form>
+
+    </dialog>
+
+    <div class="container">
+        <div class="header">
+            <h1>Library</h1>
+        </div>
+        <div class="books">
+
+            <div class="book">
+                <div class="title">Title</div>
+                <p>Author</p>
+                <p>Pages</p>
+                <div class="action" id="delete">Delete</div>
+                <div class="action" id="notRead">Read</div>
+            </div>
+
+            <div class="newBook">
+                <i class="fa-solid fa-book"></i>
+                <p>+ add book</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
