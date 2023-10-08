@@ -1,14 +1,27 @@
+const dialog = document.querySelector("dialog");
+const form = document.getElementById("myForm");
+
 const newBookDiv = document.querySelector(".newBook");
 newBookDiv.addEventListener('click', openForm);
 
 const cancel = document.getElementById("cancel");
-cancel.addEventListener('click', closeForm);
-
-const dialog = document.querySelector("dialog");
-
-const form = document.getElementById("myForm");
+cancel.addEventListener('click', () => {
+    dialog.close();
+});
 
 const myLibrary = [];
+
+function openForm() {
+    dialog.showModal();
+}
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    addBookToLibrary();
+
+    form.reset();
+});
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -17,16 +30,65 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+function addBookToLibrary() {
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
+    const read = JSON.parse(document.querySelector('input[name="read"]:checked').value);
+
+    const book = new Book(title, author, pages, read);
+
+    myLibrary.push(book);
+    dialog.close();
+    
+    updateTable();
+}
+
+function deleteBookFromLibrary() {
+    const bookId = parseInt(this.parentElement.id, 10);
+    myLibrary.splice(bookId, 1);
+    updateTable();
+}
+
+function changeReadStatus() {
+    const bookId = parseInt(this.parentElement.id, 10);
+    const book = myLibrary[bookId];
+    book.read = !book.read;
+    updateTable();
+}
+
+function addBookButton(books) {
+
+    const newBook = document.createElement("div");
+    newBook.classList.add("newBook");
+
+    const icon = document.createElement("i");
+    icon.classList.add("fa-solid");
+    icon.classList.add("fa-book");
+
+    const addBook = document.createElement("p");
+    addBook.textContent = "+ add book";
+
+    newBook.appendChild(icon);
+    newBook.appendChild(addBook);
+
+    books.appendChild(newBook);
+
+    const newBookDiv = document.querySelector(".newBook");
+    newBookDiv.addEventListener('click', openForm);
+}
+
 function updateTable() {
     const books = document.querySelector(".books");
+    let index = 0;
 
     books.innerHTML = "";
 
-    for (let i = 0; i < myLibrary.length; i++) {
-        const book = myLibrary[i];
+    myLibrary.forEach((book) => {
 
         const bookDiv = document.createElement("div");
         bookDiv.classList.add("book");
+        bookDiv.setAttribute("id", index);
 
         const titleElement = document.createElement("div");
         titleElement.textContent = `${book.title}`;
@@ -42,10 +104,10 @@ function updateTable() {
         deleteElement.textContent = "Delete";
         deleteElement.classList.add("action");
         deleteElement.setAttribute("id", "delete");
+        deleteElement.addEventListener('click', deleteBookFromLibrary);
 
         const readElement = document.createElement("div");
         readElement.classList.add("action");
-        readElement.addEventListener("click", changeReadStatus);
         if (book.read === true) {
             readElement.textContent = "Read";
             readElement.setAttribute("id", "read");
@@ -53,6 +115,7 @@ function updateTable() {
             readElement.textContent = "Read";
             readElement.setAttribute("id", "notRead");
         }
+        readElement.addEventListener('click', changeReadStatus);
 
         bookDiv.appendChild(titleElement);
         bookDiv.appendChild(authorElement);
@@ -61,56 +124,8 @@ function updateTable() {
         bookDiv.appendChild(readElement);
 
         books.appendChild(bookDiv);
-    }
+        index++;
+    });
 
-    const newBook = document.createElement("div");
-    newBook.classList.add("newBook");
-    const icon = document.createElement("i");
-    icon.classList.add("fa-solid");
-    icon.classList.add("fa-book");
-    const addBook = document.createElement("p");
-    addBook.textContent = "+ add book";
-
-    newBook.appendChild(icon);
-    newBook.appendChild(addBook);
-
-    books.appendChild(newBook);
-
-    const newBookDiv = document.querySelector(".newBook");
-    newBookDiv.addEventListener('click', openForm);
+    addBookButton(books);
 }
-
-function changeReadStatus(read) {
-    if (read === true) {}
-}
-
-function openForm() {
-    dialog.showModal();
-}
-
-function closeForm() {
-    dialog.close();
-}
-
-function addBookToLibrary() {
-
-    const title = document.getElementById("title").value;
-    const author = document.getElementById("author").value;
-    const pages = document.getElementById("pages").value;
-    const selectedRadio = document.querySelector('input[name="read"]:checked');
-    const read = JSON.parse(selectedRadio.value);
-
-    const book = new Book(title, author, pages, read);
-
-    myLibrary.push(book);
-    dialog.close();
-    
-    updateTable();
-}
-
-form.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    addBookToLibrary();
-});
-
